@@ -51,4 +51,6 @@ node tests\validate-data.js
 - 逐頁內容：妖怪 36、山海異獸 60、配方 100、卷軸 8、探索 14、任務 25、說明卡 6。
 - 瀏覽器主控台：桌機、平板、手機抽查皆無 error／warning。
 - 社群預覽：`assets/social-preview.jpg` 為 JPEG、1200×630，使用專案自有素材；OG／Twitter metadata 已接上正式絕對 URL。
-- 公開 URL、HTTP、MIME 與 Pages 狀態將在首次推送後補記。
+- GitHub Pages：`main` 分支根目錄建置狀態為 `built`，公開網址為 <https://prayer168.github.io/Demon-Refining/>。
+- 公開 HTTP：首頁、CSS、JavaScript、妖怪 WebP 與社群預覽圖均回傳 200；WebP MIME 為 `image/webp`，社群預覽 MIME 為 `image/jpeg`。
+- 公開瀏覽器複驗：標題與九個導覽頁籤正確；妖怪庫 6 張起始卡皆載入 512×512 WebP，無失敗圖片、水平溢出或 console error／warning。
