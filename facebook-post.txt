@@ -1,0 +1,17 @@
+【繁體中文】
+
+最近完成了一款可直接在瀏覽器遊玩的繁體中文復古像素遊戲《萬靈山海煉妖錄》。你可以收集 96 種原創妖怪與《山海經》異獸，把兩隻妖怪投入青銅煉妖爐，從種族、屬性、等級與血脈推敲 100 組配方。
+
+遊戲還包含八卷山海探索、妖怪與配方圖鑑、任務成就，以及可匯出備份的本機存檔。所有古籍條目都區分原文記載、白話轉譯、合理推測與遊戲設定，適合喜歡收集、配方研究與傳統奇幻題材的玩家慢慢探索。
+
+歡迎直接進入遊戲：
+https://prayer168.github.io/Demon-Refining/
+
+【English】
+
+I’ve just finished a browser-based Traditional Chinese pixel game called “Chronicles of the Demon-Refining Furnace.” Collect 96 original monsters and creatures inspired by the Classic of Mountains and Seas, then combine pairs inside an ancient bronze furnace while experimenting with race, element, level, and bloodline across 100 discoverable recipes.
+
+The game also features eight exploration scrolls, monster and recipe encyclopedias, achievements, and local save files that can be exported for backup. Historical records, modern paraphrases, cautious interpretations, and original game lore are clearly separated throughout the bestiary.
+
+Play it here:
+https://prayer168.github.io/Demon-Refining/

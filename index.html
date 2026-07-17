@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171b18">
+  <meta name="description" content="《萬靈山海煉妖錄》— 可離線遊玩的原創繁體中文復古像素妖怪收集與煉妖遊戲。">
+  <link rel="canonical" href="https://prayer168.github.io/Demon-Refining/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:url" content="https://prayer168.github.io/Demon-Refining/">
+  <meta property="og:title" content="萬靈山海煉妖錄｜復古像素妖怪收集與煉妖遊戲">
+  <meta property="og:description" content="收集 96 種妖怪、探索八卷山海、研究 100 組配方，親手投入青銅煉妖爐化生萬靈。">
+  <meta property="og:image" content="https://prayer168.github.io/Demon-Refining/assets/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="萬靈山海煉妖錄復古像素遊戲封面，展示苔角獸、九尾狐與爐齒獅。">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="萬靈山海煉妖錄｜復古像素妖怪收集與煉妖遊戲">
+  <meta name="twitter:description" content="收集 96 種妖怪、探索八卷山海、研究 100 組配方。">
+  <meta name="twitter:image" content="https://prayer168.github.io/Demon-Refining/assets/social-preview.jpg">
+  <title>萬靈山海煉妖錄</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css?v=1.0.0">
+</head>
+<body>
+  <a class="skip-link" href="#game-main">跳到遊戲內容</a>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <span class="seal" aria-hidden="true">煉</span>
+        <div><h1>萬靈山海煉妖錄</h1><p>墨山藏萬靈，青爐問古今</p></div>
+      </div>
+      <div class="player-strip" aria-label="玩家狀態">
+        <span><small>煉妖師</small><b id="stat-level">Lv.1</b></span>
+        <span class="exp-stat"><small>經驗</small><b id="stat-exp">0 / 100</b><i><em id="exp-bar"></em></i></span>
+        <span><small>靈石</small><b id="stat-stones">500</b></span>
+        <span><small>妖怪庫</small><b id="stat-owned">6 / 20</b></span>
+        <span><small>圖鑑</small><b id="stat-dex">0%</b></span>
+        <span><small>山海</small><b id="stat-shanhai">0%</b></span>
+      </div>
+      <div class="top-actions">
+        <span id="save-status" class="save-status" role="status">● 已自動存檔</span>
+        <button id="sound-toggle" class="icon-btn" type="button" aria-label="切換音效">聲效：開</button>
+        <button id="fullscreen-btn" class="icon-btn" type="button" aria-label="切換全螢幕">全螢幕</button>
+        <button class="icon-btn" type="button" data-page="save" aria-label="開啟存檔管理">存檔</button>
+      </div>
+    </header>
+
+    <main id="game-main" tabindex="-1">
+      <section id="page-alchemy" class="page active" data-title="煉妖房">
+        <div class="room-scene">
+          <div class="ink-window" aria-hidden="true"><div class="moon"></div><div class="mountain m1"></div><div class="mountain m2"></div><div class="mist"></div></div>
+          <div class="shelf left-shelf" aria-hidden="true"><i></i><i></i><i></i><b>卷</b><b>草</b></div>
+          <div class="shelf right-shelf" aria-hidden="true"><i></i><i></i><b>罐</b><b>符</b></div>
+          <div class="alchemy-layout">
+            <div class="material-column">
+              <h2>左陣・陰</h2>
+              <button id="slot-a" class="material-slot" type="button" aria-label="選擇左側煉妖材料"><span class="slot-rune">甲</span><em>選擇妖怪</em></button>
+            </div>
+            <div id="furnace-stage" class="furnace-stage">
+              <div class="rune-orbit" aria-hidden="true">玄　靈　化　生</div>
+              <div class="furnace" aria-label="青銅煉妖爐">
+                <div class="furnace-lid"></div><div class="furnace-ear ear-left"></div><div class="furnace-ear ear-right"></div>
+                <div class="furnace-body"><span class="taotie">◇<i>目</i>◇</span><span class="furnace-runes">山 川 火 月</span></div>
+                <div class="furnace-leg l1"></div><div class="furnace-leg l2"></div><div class="furnace-leg l3"></div>
+                <div class="pixel-fire"><i></i><i></i><i></i></div>
+              </div>
+              <div class="alchemy-readout">
+                <div><small>靈石費用</small><b id="alchemy-cost">—</b></div>
+                <div><small>預估成功率</small><b id="alchemy-rate">—</b></div>
+                <div><small>屬性傾向</small><b id="alchemy-element">—</b></div>
+              </div>
+              <p id="recipe-hint" class="recipe-hint">選擇兩隻妖怪，爐紋會顯示配方線索。</p>
+              <div class="furnace-actions">
+                <button id="alchemy-start" class="primary-btn" type="button" disabled>開始煉妖</button>
+                <button id="alchemy-clear" class="secondary-btn" type="button">清空材料</button>
+                <label class="toggle-line"><input id="skip-animation" type="checkbox">略過動畫</label>
+                <label id="boost-label" class="toggle-line"><input id="boost-alchemy" type="checkbox">護爐加持（80 靈石，成功率 +10%）</label>
+              </div>
+            </div>
+            <div class="material-column">
+              <h2>右陣・陽</h2>
+              <button id="slot-b" class="material-slot" type="button" aria-label="選擇右側煉妖材料"><span class="slot-rune">乙</span><em>選擇妖怪</em></button>
+            </div>
+          </div>
+        </div>
+        <section class="panel record-panel">
+          <div class="panel-heading"><div><span class="eyebrow">青爐舊痕</span><h2>最近煉妖紀錄</h2></div><span>保留最近 20 筆</span></div>
+          <div id="alchemy-log" class="record-list empty-state">尚無煉妖紀錄。</div>
+        </section>
+      </section>
+
+      <section id="page-inventory" class="page" data-title="妖怪庫">
+        <div class="scroll-panel">
+          <div class="panel-heading"><div><span class="eyebrow">萬靈有序</span><h2>妖怪庫</h2></div><button id="expand-storage" class="secondary-btn" type="button">擴充 5 格（200 靈石）</button></div>
+          <div class="filters">
+            <label>搜尋<input id="inventory-search" type="search" placeholder="輸入妖怪名稱"></label>
+            <label>種族<select id="inventory-race"><option value="">全部種族</option></select></label>
+            <label>屬性<select id="inventory-element"><option value="">全部屬性</option></select></label>
+            <label>排序<select id="inventory-sort"><option value="newest">最新取得</option><option value="level">等級高至低</option><option value="rarity">稀有度高至低</option><option value="bloodline">血脈高至低</option><option value="name">名稱</option></select></label>
+          </div>
+          <p class="interaction-note">點選卡片查看詳情；可拖曳卡片至左右法陣，或用卡片下方按鈕放入煉妖陣。</p>
+          <div id="inventory-grid" class="monster-grid"></div>
+        </div>
+      </section>
+
+      <section id="page-dex" class="page" data-title="妖怪圖鑑">
+        <div class="scroll-panel"><div class="panel-heading"><div><span class="eyebrow">百怪留名</span><h2>妖怪圖鑑</h2></div><b id="dex-progress">0 / 36</b></div><div id="dex-grid" class="monster-grid dex-grid"></div></div>
+      </section>
+
+      <section id="page-shanhai" class="page" data-title="山海圖鑑">
+        <div class="scroll-panel shanhai-paper">
+          <div class="panel-heading"><div><span class="eyebrow">古籍與遊戲設定分列</span><h2>山海圖鑑</h2></div><b id="shanhai-progress">0 / 60</b></div>
+          <div class="filters">
+            <label>搜尋<input id="shanhai-search" type="search" placeholder="名稱或異名"></label>
+            <label>篇章<select id="shanhai-chapter"><option value="">全部篇章</option></select></label>
+            <label>地區<select id="shanhai-region"><option value="">全部地區</option></select></label>
+            <label>形態<select id="shanhai-form"><option value="">全部形態</option><option>獸</option><option>鳥</option><option>魚</option><option>蛇</option><option>神靈</option></select></label>
+            <label>種族<select id="shanhai-race"><option value="">全部種族</option></select></label>
+            <label>屬性<select id="shanhai-element"><option value="">全部屬性</option></select></label>
+            <label>稀有度<select id="shanhai-rarity"><option value="">全部稀有度</option><option>普通</option><option>精良</option><option>稀有</option><option>史詩</option><option>傳說</option><option>神話</option></select></label>
+            <label>狀態<select id="shanhai-state"><option value="">全部</option><option value="found">已發現</option><option value="hidden">未發現</option></select></label>
+          </div>
+          <div id="shanhai-list" class="bestiary-list"></div>
+        </div>
+      </section>
+
+      <section id="page-recipes" class="page" data-title="配方圖鑑">
+        <div class="scroll-panel"><div class="panel-heading"><div><span class="eyebrow">火候與因緣</span><h2>配方圖鑑</h2></div><div class="heading-actions"><b id="recipe-progress">0 / 100</b><button id="use-recipe-clue" class="secondary-btn" type="button">使用線索（現有 3）</button></div></div>
+          <div class="filters"><label>顯示<select id="recipe-state"><option value="">全部</option><option value="found">已發現</option><option value="hidden">未發現</option></select></label><label>類別<select id="recipe-category"><option value="">全部</option><option>一般配方</option><option>山海配方</option></select></label><label>稀有度<select id="recipe-rarity"><option value="">全部</option><option>普通</option><option>精良</option><option>稀有</option><option>史詩</option><option>傳說</option><option>神話</option></select></label><label>結果種族<select id="recipe-race"><option value="">全部種族</option></select></label><label>結果屬性<select id="recipe-element"><option value="">全部屬性</option></select></label><label>順序<select id="recipe-order"><option value="">全部</option><option value="ordered">順序配方</option><option value="unordered">非順序配方</option></select></label></div>
+          <div id="recipe-list" class="recipe-list"></div>
+        </div>
+      </section>
+
+      <section id="page-scrolls" class="page" data-title="山海卷軸">
+        <div class="scroll-panel map-panel"><div class="panel-heading"><div><span class="eyebrow">依古籍意象重新創作・非現代地理</span><h2>山海卷軸</h2></div><b id="scroll-pages">殘頁 1</b></div>
+          <div id="scroll-map" class="ink-map"></div><div id="scroll-detail" class="map-detail"></div>
+        </div>
+      </section>
+
+      <section id="page-explore" class="page" data-title="探索">
+        <div class="scroll-panel"><div class="panel-heading"><div><span class="eyebrow">五至十五息即返</span><h2>探索</h2></div><b id="explore-status">隊伍待命</b></div><div id="explore-items" class="item-strip"></div><div class="explore-tools"><button id="buy-clue" class="secondary-btn" type="button">購買配方線索（120 靈石）</button></div><div id="explore-locations" class="location-grid"></div><div id="explore-active" class="explore-active hidden"></div></div>
+      </section>
+
+      <section id="page-quests" class="page" data-title="任務與成就">
+        <div class="scroll-panel"><div class="panel-heading"><div><span class="eyebrow">一步一印</span><h2>任務與成就</h2></div><b id="quest-summary">0 / 25</b></div><div id="quest-list" class="quest-list"></div></div>
+      </section>
+
+      <section id="page-help" class="page" data-title="遊戲說明">
+        <div class="scroll-panel help-content">
+          <div class="panel-heading"><div><span class="eyebrow">竹簡備忘</span><h2>遊戲說明</h2></div><button id="restart-tutorial" class="secondary-btn" type="button">重新開啟新手引導</button></div>
+          <div class="help-grid">
+            <article><h3>煉妖基本</h3><p>從妖怪庫點選或拖曳兩個不同實體到左右法陣。煉妖會消耗材料與靈石；同種妖怪需要實際持有兩隻。鎖定的妖怪不能煉化。</p></article>
+            <article><h3>配方判定</h3><p>優先檢查特殊配方與順序配方，再依種族、屬性、平均等級、稀有度與山海血脈計算。一般組合大多對稱，明確標示「順序」者例外。</p></article>
+            <article><h3>探索與卷軸</h3><p>探索約需 5～15 秒，可取得妖怪、靈石、線索與殘頁。山海高階異獸需要指定配方、卷軸或任務條件，不能單靠普通隨機煉出。</p></article>
+            <article><h3>鍵盤與無障礙</h3><p>Tab 可移動焦點，Enter 或 Space 啟用按鈕，Esc 關閉對話窗。設定中可減少動畫；重要狀態均有文字，不只以顏色表示。</p></article>
+            <article><h3>資料與原創聲明</h3><p>一般妖怪、造型、技能、配方、故事、介面與程式均為本作原創。《山海經》條目引用必要短句並標明篇章；白話與遊戲設定分開呈現。本作不隸屬或模仿任何商業遊戲。</p></article>
+            <article><h3>古籍資料來源</h3><p>60 種條目依中國哲學書電子化計劃所收《山海經》山經、海經與大荒經逐條核對。不同傳本可能有字形、句讀或訓詁差異，詳情見各條目的考證備註與來源連結。</p></article>
+          </div>
+          <fieldset class="settings-box"><legend>遊戲設定</legend><label><input id="setting-reduced" type="checkbox"> 減少動畫</label><label>音量 <input id="setting-volume" type="range" min="0" max="100" value="55"></label><label><input id="setting-dev" type="checkbox" checked> 開發模式：探索可立即完成</label></fieldset>
+        </div>
+      </section>
+
+      <section id="page-save" class="page" data-title="存檔管理">
+        <div class="scroll-panel save-panel"><div class="panel-heading"><div><span class="eyebrow">卷藏於此機</span><h2>存檔管理</h2></div><b id="save-version">格式 v1</b></div>
+          <div class="save-actions"><button id="manual-save" class="primary-btn" type="button">立即存檔</button><button id="export-save" class="secondary-btn" type="button">匯出 JSON</button><label class="file-btn">匯入 JSON<input id="import-save" type="file" accept="application/json,.json"></label><button id="reset-save" class="danger-btn" type="button">重置遊戲</button></div>
+          <p id="save-info"></p><textarea id="save-preview" readonly aria-label="存檔摘要"></textarea>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="主要導覽">
+      <button class="active" type="button" data-page="alchemy"><span>爐</span>煉妖房</button>
+      <button type="button" data-page="inventory"><span>庫</span>妖怪庫</button>
+      <button type="button" data-page="dex"><span>怪</span>妖怪圖鑑</button>
+      <button type="button" data-page="shanhai"><span>海</span>山海圖鑑</button>
+      <button type="button" data-page="recipes"><span>方</span>配方圖鑑</button>
+      <button type="button" data-page="scrolls"><span>卷</span>山海卷軸</button>
+      <button type="button" data-page="explore"><span>行</span>探索</button>
+      <button type="button" data-page="quests"><span>印</span>任務與成就</button>
+      <button type="button" data-page="help"><span>問</span>遊戲說明</button>
+    </nav>
+  </div>
+
+  <dialog id="game-dialog" class="ink-dialog"><form method="dialog"><button class="dialog-close" value="close" aria-label="關閉對話窗">×</button><div id="dialog-content"></div></form></dialog>
+  <dialog id="picker-dialog" class="ink-dialog wide-dialog"><form method="dialog"><button class="dialog-close" value="close" aria-label="關閉材料選擇">×</button><h2 id="picker-title">選擇妖怪</h2><div id="picker-grid" class="monster-grid picker-grid"></div></form></dialog>
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <div id="tutorial-overlay" class="tutorial-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="tutorial-title"><div class="tutorial-card"><span id="tutorial-count"></span><h2 id="tutorial-title"></h2><p id="tutorial-text"></p><div><button id="tutorial-skip" class="secondary-btn" type="button">跳過</button><button id="tutorial-next" class="primary-btn" type="button">下一步</button></div></div></div>
+
+  <script src="monsters.js?v=1.0.0"></script>
+  <script src="shanhaijing-monsters.js?v=1.0.0"></script>
+  <script src="shanhaijing-expansion.js?v=1.0.0"></script>
+  <script src="recipes.js?v=1.0.0"></script>
+  <script src="recipes-expansion.js?v=1.0.0"></script>
+  <script src="monster-images.js?v=1.0.0"></script>
+  <script src="game.js?v=1.0.0"></script>
+</body>
+</html>
