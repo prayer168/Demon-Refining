@@ -44,7 +44,7 @@ node tests\validate-images.js
 - 根目錄 `index.html` 為 GitHub Pages 入口；相對路徑可在 repository 子路徑運作。
 - 靜態資源查詢版本已提升為 `v=2.0.0`，避免舊版映射快取。
 - 最終 ZIP：`萬靈山海煉妖錄.zip`；包含完整遊戲與 96 張 WebP，不包含 `.git/`、原始 PNG、測試截圖或既有 ZIP。
-- 圖像與文件更新完成後，需確認 GitHub Pages workflow 為成功狀態，並再次檢查公開首頁及 96 張圖像。
+- v2.0.0 已推送並完成 GitHub Pages 建置；公開首頁、九頁籤、手機版面與 96／96 張圖像均已複驗通過。
 
 ## 後續維護注意
 
