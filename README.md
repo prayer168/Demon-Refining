@@ -32,7 +32,7 @@ py -m http.server 8000
 - 10 步新手引導、鍵盤操作、減少動畫、程式產生復古音效。
 - LocalStorage 自動存檔、手動存檔、JSON 匯出／匯入、驗證、錯誤處理與二次確認重置。
 - 桌機、平板與手機響應式介面；1440×1000、768×1024、390×844 實測無水平捲軸。
-- 首批 49 張 Image 2.0 妖怪圖像已接入；尚未重製的條目會安全使用原有離線 SVG 像素圖。
+- 96 種妖怪均有獨立 512×512 Image 2.0 WebP 圖像；36 種原創妖怪與 60 種山海異獸已全數接入，遊戲圖鑑不再使用 SVG 回退圖。
 
 ## 遊戲方式
 
@@ -55,6 +55,8 @@ shanhaijing-monsters.js        南山經、西山經首批 20 種山海異獸
 shanhaijing-expansion.js       北、東、中、海經與大荒經等 40 種擴充異獸
 recipes.js                     前 50 組配方與完整配對規則
 recipes-expansion.js           後 50 組配方、品階校正與可達性資料
+monster-images.js              96 種妖怪與 WebP 圖像映射
+assets/monsters/*.webp         96 張 512×512 遊戲圖像
 docs/MONSTERS.md               妖怪資料說明
 docs/SHANHAI_SOURCES.md        山海異獸資料與來源說明
 docs/RECIPES.md                配方與計算規則
@@ -62,6 +64,8 @@ docs/TEST_REPORT.md            驗收結果
 docs/KNOWN_LIMITATIONS.md      已知限制與擴充方向
 docs/references.md             內容與素材來源
 tests/validate-data.js         資料與配方自動驗證
+tests/validate-images.js       96 張圖像映射、格式、尺寸與重複檢查
+HANDOFF.md                     完成狀態與維護交接
 facebook-post.txt              中英 Facebook 分享文案
 assets/social-preview.jpg      1200×630 社群連結預覽圖
 ```
@@ -72,9 +76,10 @@ assets/social-preview.jpg      1200×630 社群連結預覽圖
 
 ```powershell
 node tests\validate-data.js
+node tests\validate-images.js
 ```
 
-目前應顯示「全部 68 項資料與結構驗證通過」。詳細瀏覽器驗收見 `docs/TEST_REPORT.md`。
+目前應分別顯示「全部 68 項資料與結構驗證通過」及「全部 108 項圖像資產驗證通過」。詳細瀏覽器驗收見 `docs/TEST_REPORT.md`。
 
 ## 部署至 GitHub Pages
 
